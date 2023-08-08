@@ -32,3 +32,11 @@ Route::middleware('guest')->group(function () {
     Route::get('auth/google/redirect', [App\Http\Controllers\Auth\SocialiteController::class, 'redirect'])->name('google.login');
     Route::get('auth/google/callback', [App\Http\Controllers\Auth\SocialiteController::class, 'callback']);
 });
+
+// Xendit
+Route::middleware('auth')->group(function () {
+    Route::get('payment/{id}', '\App\Http\Controllers\Xendit\PaymentController@payment')->name('wave.payment');
+	Route::get('/success', [\App\Http\Controllers\Xendit\AfterCartController::class, 'success'])->name('success');
+	Route::get('/failure', [\App\Http\Controllers\Xendit\AfterCartController::class, 'failure'])->name('failure');
+});
+Route::post('/xendit/callback', \App\Http\Controllers\Xendit\CallbackInvoiceController::class);

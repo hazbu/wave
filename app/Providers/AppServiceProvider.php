@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use TCG\Voyager\Facades\Voyager;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -58,6 +59,8 @@ class AppServiceProvider extends ServiceProvider
 
             return true;
         });
+
+        Voyager::addAction(\App\Actions\Pay::class);
     }
 
     private function setSchemaDefaultLength(): void
