@@ -24,6 +24,7 @@
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.4",
         "opcodesio/log-viewer": "^2.4",
+        "orangehill/iseed": "^3.0",
         "tcg/voyager": "1.5.x-dev",
         "tymon/jwt-auth": "@dev",
         "xendit/xendit-php": "^2.19"
