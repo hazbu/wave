@@ -534,6 +534,81 @@ class PermissionRoleTableSeeder extends Seeder
                 'permission_id' => 57,
                 'role_id' => 1,
             ),
+            103 => 
+            array (
+                'permission_id' => 58,
+                'role_id' => 1,
+            ),
+            104 => 
+            array (
+                'permission_id' => 59,
+                'role_id' => 1,
+            ),
+            105 => 
+            array (
+                'permission_id' => 60,
+                'role_id' => 1,
+            ),
+            106 => 
+            array (
+                'permission_id' => 61,
+                'role_id' => 1,
+            ),
+            107 => 
+            array (
+                'permission_id' => 62,
+                'role_id' => 1,
+            ),
+            108 => 
+            array (
+                'permission_id' => 63,
+                'role_id' => 1,
+            ),
+            109 => 
+            array (
+                'permission_id' => 64,
+                'role_id' => 1,
+            ),
+            110 => 
+            array (
+                'permission_id' => 65,
+                'role_id' => 1,
+            ),
+            111 => 
+            array (
+                'permission_id' => 66,
+                'role_id' => 1,
+            ),
+            112 => 
+            array (
+                'permission_id' => 67,
+                'role_id' => 1,
+            ),
+            113 => 
+            array (
+                'permission_id' => 68,
+                'role_id' => 1,
+            ),
+            114 => 
+            array (
+                'permission_id' => 69,
+                'role_id' => 1,
+            ),
+            115 => 
+            array (
+                'permission_id' => 70,
+                'role_id' => 1,
+            ),
+            116 => 
+            array (
+                'permission_id' => 71,
+                'role_id' => 1,
+            ),
+            117 => 
+            array (
+                'permission_id' => 72,
+                'role_id' => 1,
+            ),
         ));
         
         

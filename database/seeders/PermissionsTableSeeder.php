@@ -532,6 +532,141 @@ class PermissionsTableSeeder extends Seeder
                 'updated_at' => '2018-07-03 04:50:28',
                 'permission_group_id' => NULL,
             ),
+            57 => 
+            array (
+                'id' => 58,
+                'key' => 'browse_payments',
+                'table_name' => 'payments',
+                'created_at' => '2023-08-08 04:02:19',
+                'updated_at' => '2023-08-08 04:02:19',
+                'permission_group_id' => NULL,
+            ),
+            58 => 
+            array (
+                'id' => 59,
+                'key' => 'read_payments',
+                'table_name' => 'payments',
+                'created_at' => '2023-08-08 04:02:19',
+                'updated_at' => '2023-08-08 04:02:19',
+                'permission_group_id' => NULL,
+            ),
+            59 => 
+            array (
+                'id' => 60,
+                'key' => 'edit_payments',
+                'table_name' => 'payments',
+                'created_at' => '2023-08-08 04:02:19',
+                'updated_at' => '2023-08-08 04:02:19',
+                'permission_group_id' => NULL,
+            ),
+            60 => 
+            array (
+                'id' => 61,
+                'key' => 'add_payments',
+                'table_name' => 'payments',
+                'created_at' => '2023-08-08 04:02:19',
+                'updated_at' => '2023-08-08 04:02:19',
+                'permission_group_id' => NULL,
+            ),
+            61 => 
+            array (
+                'id' => 62,
+                'key' => 'delete_payments',
+                'table_name' => 'payments',
+                'created_at' => '2023-08-08 04:02:19',
+                'updated_at' => '2023-08-08 04:02:19',
+                'permission_group_id' => NULL,
+            ),
+            62 => 
+            array (
+                'id' => 63,
+                'key' => 'browse_products',
+                'table_name' => 'products',
+                'created_at' => '2023-08-08 04:04:50',
+                'updated_at' => '2023-08-08 04:04:50',
+                'permission_group_id' => NULL,
+            ),
+            63 => 
+            array (
+                'id' => 64,
+                'key' => 'read_products',
+                'table_name' => 'products',
+                'created_at' => '2023-08-08 04:04:50',
+                'updated_at' => '2023-08-08 04:04:50',
+                'permission_group_id' => NULL,
+            ),
+            64 => 
+            array (
+                'id' => 65,
+                'key' => 'edit_products',
+                'table_name' => 'products',
+                'created_at' => '2023-08-08 04:04:50',
+                'updated_at' => '2023-08-08 04:04:50',
+                'permission_group_id' => NULL,
+            ),
+            65 => 
+            array (
+                'id' => 66,
+                'key' => 'add_products',
+                'table_name' => 'products',
+                'created_at' => '2023-08-08 04:04:50',
+                'updated_at' => '2023-08-08 04:04:50',
+                'permission_group_id' => NULL,
+            ),
+            66 => 
+            array (
+                'id' => 67,
+                'key' => 'delete_products',
+                'table_name' => 'products',
+                'created_at' => '2023-08-08 04:04:50',
+                'updated_at' => '2023-08-08 04:04:50',
+                'permission_group_id' => NULL,
+            ),
+            67 => 
+            array (
+                'id' => 68,
+                'key' => 'browse_orders',
+                'table_name' => 'orders',
+                'created_at' => '2023-08-08 04:06:53',
+                'updated_at' => '2023-08-08 04:06:53',
+                'permission_group_id' => NULL,
+            ),
+            68 => 
+            array (
+                'id' => 69,
+                'key' => 'read_orders',
+                'table_name' => 'orders',
+                'created_at' => '2023-08-08 04:06:53',
+                'updated_at' => '2023-08-08 04:06:53',
+                'permission_group_id' => NULL,
+            ),
+            69 => 
+            array (
+                'id' => 70,
+                'key' => 'edit_orders',
+                'table_name' => 'orders',
+                'created_at' => '2023-08-08 04:06:53',
+                'updated_at' => '2023-08-08 04:06:53',
+                'permission_group_id' => NULL,
+            ),
+            70 => 
+            array (
+                'id' => 71,
+                'key' => 'add_orders',
+                'table_name' => 'orders',
+                'created_at' => '2023-08-08 04:06:53',
+                'updated_at' => '2023-08-08 04:06:53',
+                'permission_group_id' => NULL,
+            ),
+            71 => 
+            array (
+                'id' => 72,
+                'key' => 'delete_orders',
+                'table_name' => 'orders',
+                'created_at' => '2023-08-08 04:06:53',
+                'updated_at' => '2023-08-08 04:06:53',
+                'permission_group_id' => NULL,
+            ),
         ));
         
         
