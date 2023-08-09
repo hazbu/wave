@@ -23,10 +23,10 @@ class ProductsTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'name' => 'Wave Source Code',
-                'price' => 100000,
+                'price' => '100000',
+                'description' => 'Wave Source Code for Developers',
                 'created_at' => '2023-08-08 04:11:45',
-                'updated_at' => '2023-08-08 04:11:45',
-                'description' => NULL,
+                'updated_at' => '2023-08-09 01:29:10',
             ),
         ));
         

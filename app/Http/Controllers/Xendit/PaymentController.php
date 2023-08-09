@@ -38,7 +38,7 @@ class PaymentController extends Controller
             Xendit::setApiKey(env('XENDIT_SECRET_API_KEY'));
             $fees = 5000;
             $params = [
-                'external_id' => '$order->id2',
+                'external_id' => $order->invoice_id,
                 'amount' => $product->price+$fees,
                 // 'description' => '',
                 'invoice_duration' => 86400,
