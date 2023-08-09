@@ -30,7 +30,6 @@ class CallbackInvoiceController extends Controller
             ],
             [
                 'invoice_id' => $json->id,
-                // 'user_id' => $json->user_id,
                 'payment_method' => $json->payment_method,
                 'status' => $json->status,
                 'paid_amount' => $json->paid_amount,

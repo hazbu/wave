@@ -19,7 +19,7 @@ class PaymentController extends Controller
         $order = Order::find($id);
         $user = User::find($order->user_id);
         $product = Product::find($order->product_id);
-        $payment = $order->toArray();
+        $payment = Payment::where('order_id', $order->order_id)->first();
         // print_r($order);
         // print_r($user);
         // print_r($product);
@@ -93,32 +93,27 @@ class PaymentController extends Controller
                     ]
                 ]
             ];
-            print_r($params);
-            $checkInvoice = Product::find($order->order_id);
-
-            if($checkInvoice){
-                $createInvoice = \Xendit\Invoice::retrieve($checkInvoice->invoice_id, $retrieveParam);
+            if($payment){
+                $createInvoice = \Xendit\Invoice::retrieve($payment->invoice_id);
             }else{
                 $createInvoice = \Xendit\Invoice::create($params);
-            }            
-
-            $xenditInvoiceId = $createInvoice['id'];
-            DB::beginTransaction();
-            Payment::updateOrCreate([
-                'order_id' => $order->order_id,
-            ],
-            [
-                'user_id' => $user->id,
-                'product_id' => $product->id,
-                'invoice_id' => $xenditInvoiceId,
-                'amount' => $product->price,
-            ]);
-            DB::commit();
-
+                $xenditInvoiceId = $createInvoice['id'];
+                DB::beginTransaction();
+                Payment::updateOrCreate([
+                    'order_id' => $order->order_id,
+                ],
+                [
+                    'user_id' => $user->id,
+                    'product_id' => $product->id,
+                    'invoice_id' => $xenditInvoiceId,
+                    'amount' => $product->price,
+                ]);
+                DB::commit();
+                }            
             return Redirect::to($createInvoice['invoice_url']);
         } catch (\Exception $ex) {
             echo $ex->getMessage();
-            // DB::rollBack();
+            DB::rollBack();
             // return redirect()->back()->with('status', $ex->getMessage());
         }
     }
