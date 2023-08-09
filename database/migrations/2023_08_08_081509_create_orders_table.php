@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('user_id');
             $table->string('product_id');
-            $table->string('invoice_id');
+            $table->string('order_id');
             $table->timestamps();
         });
     }

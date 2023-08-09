@@ -24,23 +24,10 @@ class PaymentController extends Controller
         // print_r($user);
         // print_r($product);
         try {
-            DB::beginTransaction();
-            Payment::updateOrCreate([
-                'order_id' => $order->id,
-            ],
-            [
-                'order_id' => $order->id,
-                'user_id' => $user->id,
-                'product_id' => $product->id,
-                'invoice_order' => $order->invoice_id,
-                'amount' => $product->price,
-            ]);
-            DB::commit();
-
             Xendit::setApiKey(env('XENDIT_SECRET_API_KEY'));
             $fees = 5000;
             $params = [
-                'external_id' => $order->invoice_id,
+                'external_id' => $order->order_id,
                 'amount' => $product->price+$fees,
                 // 'description' => '',
                 'invoice_duration' => 86400,
@@ -107,7 +94,27 @@ class PaymentController extends Controller
                 ]
             ];
             print_r($params);
-            $createInvoice = \Xendit\Invoice::create($params);
+            $checkInvoice = Product::find($order->order_id);
+
+            if($checkInvoice){
+                $createInvoice = \Xendit\Invoice::retrieve($checkInvoice->invoice_id, $retrieveParam);
+            }else{
+                $createInvoice = \Xendit\Invoice::create($params);
+            }            
+
+            $xenditInvoiceId = $createInvoice['id'];
+            DB::beginTransaction();
+            Payment::updateOrCreate([
+                'order_id' => $order->order_id,
+            ],
+            [
+                'user_id' => $user->id,
+                'product_id' => $product->id,
+                'invoice_id' => $xenditInvoiceId,
+                'amount' => $product->price,
+            ]);
+            DB::commit();
+
             return Redirect::to($createInvoice['invoice_url']);
         } catch (\Exception $ex) {
             echo $ex->getMessage();

@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('order_id');
             $table->string('user_id');
             $table->string('product_id');
-            $table->string('invoice_order');
             $table->string('invoice_id')->nullable();
             // detail produk
             $table->string('amount');

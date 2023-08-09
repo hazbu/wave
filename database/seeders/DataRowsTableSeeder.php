@@ -1761,7 +1761,7 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 0,
                 'details' => '{}',
-                'order' => 1,
+                'order' => 0,
             ),
             109 => 
             array (
@@ -1861,27 +1861,27 @@ class DataRowsTableSeeder extends Seeder
             ),
             115 => 
             array (
-                'id' => 117,
-                'data_type_id' => 11,
-                'field' => 'invoice_id',
-                'type' => 'text',
-                'display_name' => 'Invoice Id',
-                'required' => 1,
-                'browse' => 1,
-                'read' => 1,
-                'edit' => 0,
-                'add' => 0,
-                'delete' => 0,
-                'details' => '{}',
-                'order' => 4,
-            ),
-            116 => 
-            array (
                 'id' => 118,
                 'data_type_id' => 10,
                 'field' => 'description',
                 'type' => 'text',
                 'display_name' => 'Description',
+                'required' => 1,
+                'browse' => 1,
+                'read' => 1,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{}',
+                'order' => 4,
+            ),
+            116 => 
+            array (
+                'id' => 119,
+                'data_type_id' => 11,
+                'field' => 'order_id',
+                'type' => 'text',
+                'display_name' => 'Order Id',
                 'required' => 1,
                 'browse' => 1,
                 'read' => 1,

@@ -27,7 +27,7 @@ class Order extends Model
         parent::boot();
 
         static::creating(function ($order) {
-            $order->invoice_id = uniqid(); // Generate a unique ID
+            $order->order_id = uniqid(); // Generate a unique ID
         });
     }
 }

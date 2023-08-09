@@ -27,11 +27,10 @@ class CallbackInvoiceController extends Controller
         Payment::updateOrCreate(
             [
                 'order_id' => $json->external_id,
-                'amount' => $json->amount,
             ],
             [
                 'invoice_id' => $json->id,
-                'user_id' => $json->user_id,
+                // 'user_id' => $json->user_id,
                 'payment_method' => $json->payment_method,
                 'status' => $json->status,
                 'paid_amount' => $json->paid_amount,
