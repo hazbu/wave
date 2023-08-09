@@ -9,11 +9,11 @@ class AfterCartController extends Controller
 {
     public function success()
     {
-        return route('voyager.carts.index');
+        return route('voyager.orders.index');
     }
 
     public function failure()
     {
-        return route('voyager.carts.index');
+        return route('voyager.orders.index');
     }
 }

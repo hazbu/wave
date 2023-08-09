@@ -32,6 +32,8 @@ class PaymentController extends Controller
                 'order_id' => $order->id,
                 'user_id' => $user->id,
                 'product_id' => $product->id,
+                'invoice_order' => $order->invoice_id,
+                'amount' => $product->price,
             ]);
             DB::commit();
 
@@ -42,6 +44,7 @@ class PaymentController extends Controller
                 'amount' => $product->price+$fees,
                 // 'description' => '',
                 'invoice_duration' => 86400,
+                'payer_email' => $user->email,
                 'customer' => [
                     'given_names' => $user->name,
                     // 'surname' => '',
