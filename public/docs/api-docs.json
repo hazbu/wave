@@ -5033,6 +5033,1872 @@
                     }
                 ]
             }
+        },
+        "\/api\/payments": {
+            "get": {
+                "tags": [
+                    "payments"
+                ],
+                "summary": "payments index",
+                "operationId": "payments_index",
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "Global search",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "length",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "order_by",
+                        "in": "query",
+                        "description": "Sort by column",
+                        "required": false,
+                        "schema": {
+                            "enum": [
+                                "id",
+                                "order_id",
+                                "user_id",
+                                "product_id",
+                                "invoice_id",
+                                "amount",
+                                "description",
+                                "name",
+                                "last_name",
+                                "email",
+                                "phone_number",
+                                "city",
+                                "country",
+                                "postal_code",
+                                "state",
+                                "street_line1",
+                                "street_line2",
+                                "payment_method",
+                                "payment_channel",
+                                "payment_destination",
+                                "paid_amount",
+                                "payer_email",
+                                "adjusted_received_amount",
+                                "fees_paid_amount",
+                                "bank_code",
+                                "paid_at",
+                                "status",
+                                "created_at",
+                                "updated_at",
+                                "payment_belongsto_user_relationship"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort_order",
+                        "in": "query",
+                        "description": "Sort by direction",
+                        "required": false,
+                        "schema": {
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[order_id]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[user_id][]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    },
+                    {
+                        "name": "filters[invoice_id]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[amount]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[paid_amount]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[paid_at]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[status]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[created_at]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "2020-01-01 00:00,,2021-06-01 00:00"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#\/components\/schemas\/VoyagerPaymentsBrowseResource"
+                                            }
+                                        },
+                                        "links": {
+                                            "$ref": "#\/components\/schemas\/Links"
+                                        },
+                                        "meta": {
+                                            "$ref": "#\/components\/schemas\/Meta"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "payments"
+                ],
+                "summary": "payments store",
+                "operationId": "payments_store",
+                "requestBody": {
+                    "$ref": "#\/components\/requestBodies\/VoyagerPaymentsStoreRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/VoyagerPaymentsReadResource"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "\/api\/payments\/create": {
+            "get": {
+                "tags": [
+                    "payments"
+                ],
+                "summary": "payments create",
+                "operationId": "payments_create",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": []
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "\/api\/payments\/{id}": {
+            "get": {
+                "tags": [
+                    "payments"
+                ],
+                "summary": "payments show",
+                "operationId": "payments_show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/VoyagerPaymentsReadResource"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "payments"
+                ],
+                "summary": "payments update",
+                "operationId": "payments_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#\/components\/requestBodies\/VoyagerPaymentsUpdateRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/VoyagerPaymentsReadResource"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "payments"
+                ],
+                "summary": "payments delete",
+                "operationId": "payments_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "\/api\/payments\/{id}\/single\/{field}": {
+            "put": {
+                "tags": [
+                    "payments"
+                ],
+                "summary": "payments single update",
+                "operationId": "payments_single_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "field",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "nullable": true,
+                            "enum": [
+                                "order_id",
+                                "user_id",
+                                "invoice_id",
+                                "product_id",
+                                "amount",
+                                "description",
+                                "name",
+                                "last_name",
+                                "email",
+                                "phone_number",
+                                "city",
+                                "country",
+                                "postal_code",
+                                "state",
+                                "street_line1",
+                                "street_line2",
+                                "payment_method",
+                                "payment_channel",
+                                "payment_destination",
+                                "paid_amount",
+                                "payer_email",
+                                "adjusted_received_amount",
+                                "fees_paid_amount",
+                                "bank_code",
+                                "paid_at",
+                                "status",
+                                "created_at",
+                                "payment_belongsto_user_relationship"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "fields[]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "order_id",
+                                    "user_id",
+                                    "invoice_id",
+                                    "product_id",
+                                    "amount",
+                                    "description",
+                                    "name",
+                                    "last_name",
+                                    "email",
+                                    "phone_number",
+                                    "city",
+                                    "country",
+                                    "postal_code",
+                                    "state",
+                                    "street_line1",
+                                    "street_line2",
+                                    "payment_method",
+                                    "payment_channel",
+                                    "payment_destination",
+                                    "paid_amount",
+                                    "payer_email",
+                                    "adjusted_received_amount",
+                                    "fees_paid_amount",
+                                    "bank_code",
+                                    "paid_at",
+                                    "status",
+                                    "created_at",
+                                    "payment_belongsto_user_relationship"
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#\/components\/requestBodies\/VoyagerPaymentsSingleUpdateRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/VoyagerPaymentsReadResource"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "\/api\/payments\/{id}\/edit": {
+            "get": {
+                "tags": [
+                    "payments"
+                ],
+                "summary": "payments edit",
+                "operationId": "payments_edit",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/VoyagerPaymentsReadResource"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "\/api\/payments\/relation": {
+            "get": {
+                "tags": [
+                    "payments"
+                ],
+                "summary": "payments relation",
+                "operationId": "payments_relation",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "method",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "required",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": []
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "\/api\/payments\/{id}\/restore": {
+            "get": {
+                "tags": [
+                    "payments"
+                ],
+                "summary": "payments restore",
+                "operationId": "payments_restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "\/api\/products": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "products index",
+                "operationId": "products_index",
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "Global search",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "length",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "order_by",
+                        "in": "query",
+                        "description": "Sort by column",
+                        "required": false,
+                        "schema": {
+                            "enum": [
+                                "id",
+                                "name",
+                                "price",
+                                "description",
+                                "created_at",
+                                "updated_at"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort_order",
+                        "in": "query",
+                        "description": "Sort by direction",
+                        "required": false,
+                        "schema": {
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[name]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[price]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "10,,20"
+                        }
+                    },
+                    {
+                        "name": "filters[description]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#\/components\/schemas\/VoyagerProductsBrowseResource"
+                                            }
+                                        },
+                                        "links": {
+                                            "$ref": "#\/components\/schemas\/Links"
+                                        },
+                                        "meta": {
+                                            "$ref": "#\/components\/schemas\/Meta"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "products store",
+                "operationId": "products_store",
+                "requestBody": {
+                    "$ref": "#\/components\/requestBodies\/VoyagerProductsStoreRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/VoyagerProductsReadResource"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "\/api\/products\/create": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "products create",
+                "operationId": "products_create",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": []
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "\/api\/products\/{id}": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "products show",
+                "operationId": "products_show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/VoyagerProductsReadResource"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "products update",
+                "operationId": "products_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#\/components\/requestBodies\/VoyagerProductsUpdateRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/VoyagerProductsReadResource"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "products delete",
+                "operationId": "products_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "\/api\/products\/{id}\/single\/{field}": {
+            "put": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "products single update",
+                "operationId": "products_single_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "field",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "nullable": true,
+                            "enum": [
+                                "name",
+                                "price",
+                                "description"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "fields[]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "name",
+                                    "price",
+                                    "description"
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#\/components\/requestBodies\/VoyagerProductsSingleUpdateRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/VoyagerProductsReadResource"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "\/api\/products\/{id}\/edit": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "products edit",
+                "operationId": "products_edit",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/VoyagerProductsReadResource"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "\/api\/products\/relation": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "products relation",
+                "operationId": "products_relation",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "method",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "required",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": []
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "\/api\/products\/{id}\/restore": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "products restore",
+                "operationId": "products_restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "\/api\/orders": {
+            "get": {
+                "tags": [
+                    "orders"
+                ],
+                "summary": "orders index",
+                "operationId": "orders_index",
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "Global search",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "length",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "order_by",
+                        "in": "query",
+                        "description": "Sort by column",
+                        "required": false,
+                        "schema": {
+                            "enum": [
+                                "id",
+                                "user_id",
+                                "product_id",
+                                "order_id",
+                                "created_at",
+                                "updated_at",
+                                "order_belongsto_user_relationship",
+                                "order_belongsto_product_relationship"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort_order",
+                        "in": "query",
+                        "description": "Sort by direction",
+                        "required": false,
+                        "schema": {
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ],
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[user_id][]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    },
+                    {
+                        "name": "filters[product_id][]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    },
+                    {
+                        "name": "filters[order_id]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[created_at]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "2020-01-01 00:00,,2021-06-01 00:00"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#\/components\/schemas\/VoyagerOrdersBrowseResource"
+                                            }
+                                        },
+                                        "links": {
+                                            "$ref": "#\/components\/schemas\/Links"
+                                        },
+                                        "meta": {
+                                            "$ref": "#\/components\/schemas\/Meta"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "orders"
+                ],
+                "summary": "orders store",
+                "operationId": "orders_store",
+                "requestBody": {
+                    "$ref": "#\/components\/requestBodies\/VoyagerOrdersStoreRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/VoyagerOrdersReadResource"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "\/api\/orders\/create": {
+            "get": {
+                "tags": [
+                    "orders"
+                ],
+                "summary": "orders create",
+                "operationId": "orders_create",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": []
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "\/api\/orders\/{id}": {
+            "get": {
+                "tags": [
+                    "orders"
+                ],
+                "summary": "orders show",
+                "operationId": "orders_show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/VoyagerOrdersReadResource"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "orders"
+                ],
+                "summary": "orders update",
+                "operationId": "orders_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#\/components\/requestBodies\/VoyagerOrdersUpdateRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/VoyagerOrdersReadResource"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "orders"
+                ],
+                "summary": "orders delete",
+                "operationId": "orders_delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "\/api\/orders\/{id}\/single\/{field}": {
+            "put": {
+                "tags": [
+                    "orders"
+                ],
+                "summary": "orders single update",
+                "operationId": "orders_single_update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "field",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "nullable": true,
+                            "enum": [
+                                "user_id",
+                                "product_id",
+                                "order_belongsto_user_relationship",
+                                "order_belongsto_product_relationship"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "fields[]",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "user_id",
+                                    "product_id",
+                                    "order_belongsto_user_relationship",
+                                    "order_belongsto_product_relationship"
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#\/components\/requestBodies\/VoyagerOrdersSingleUpdateRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/VoyagerOrdersReadResource"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "\/api\/orders\/{id}\/edit": {
+            "get": {
+                "tags": [
+                    "orders"
+                ],
+                "summary": "orders edit",
+                "operationId": "orders_edit",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#\/components\/schemas\/VoyagerOrdersReadResource"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "\/api\/orders\/relation": {
+            "get": {
+                "tags": [
+                    "orders"
+                ],
+                "summary": "orders relation",
+                "operationId": "orders_relation",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "method",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "required",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": []
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
+        },
+        "\/api\/orders\/{id}\/restore": {
+            "get": {
+                "tags": [
+                    "orders"
+                ],
+                "summary": "orders restore",
+                "operationId": "orders_restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "token": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -5595,6 +7461,264 @@
                     "trial_days": {
                         "type": "integer",
                         "description": "Trial Days (If none, set to 0)"
+                    }
+                }
+            },
+            "VoyagerPaymentsBrowseResource": {
+                "type": "object",
+                "properties": {
+                    "order_id": {
+                        "type": "string",
+                        "description": "Order Id"
+                    },
+                    "user_id": {
+                        "type": "string",
+                        "description": "User Id"
+                    },
+                    "invoice_id": {
+                        "type": "string",
+                        "description": "Invoice Id"
+                    },
+                    "amount": {
+                        "type": "string",
+                        "description": "Amount"
+                    },
+                    "paid_amount": {
+                        "type": "string",
+                        "description": "Paid Amount"
+                    },
+                    "paid_at": {
+                        "type": "string",
+                        "description": "Paid At"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "Status"
+                    },
+                    "created_at": {
+                        "pattern": "\/([0-9]{4})-(?:[0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2})\/",
+                        "type": "date-time",
+                        "description": "Created At",
+                        "example": "2021-05-17 00:00"
+                    },
+                    "payment_belongsto_user_relationship": {
+                        "type": "integer",
+                        "description": "User"
+                    }
+                }
+            },
+            "VoyagerPaymentsReadResource": {
+                "type": "object",
+                "properties": {
+                    "order_id": {
+                        "type": "string",
+                        "description": "Order Id"
+                    },
+                    "user_id": {
+                        "type": "string",
+                        "description": "User Id"
+                    },
+                    "invoice_id": {
+                        "type": "string",
+                        "description": "Invoice Id"
+                    },
+                    "product_id": {
+                        "type": "string",
+                        "description": "Product Id"
+                    },
+                    "amount": {
+                        "type": "string",
+                        "description": "Amount"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Description"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name"
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "description": "Last Name"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email"
+                    },
+                    "phone_number": {
+                        "type": "string",
+                        "description": "Phone Number"
+                    },
+                    "city": {
+                        "type": "string",
+                        "description": "City"
+                    },
+                    "country": {
+                        "type": "string",
+                        "description": "Country"
+                    },
+                    "postal_code": {
+                        "type": "string",
+                        "description": "Postal Code"
+                    },
+                    "state": {
+                        "type": "string",
+                        "description": "State"
+                    },
+                    "street_line1": {
+                        "type": "string",
+                        "description": "Street Line1"
+                    },
+                    "street_line2": {
+                        "type": "string",
+                        "description": "Street Line2"
+                    },
+                    "payment_method": {
+                        "type": "string",
+                        "description": "Payment Method"
+                    },
+                    "payment_channel": {
+                        "type": "string",
+                        "description": "Payment Channel"
+                    },
+                    "payment_destination": {
+                        "type": "string",
+                        "description": "Payment Destination"
+                    },
+                    "paid_amount": {
+                        "type": "string",
+                        "description": "Paid Amount"
+                    },
+                    "payer_email": {
+                        "type": "string",
+                        "description": "Payer Email"
+                    },
+                    "adjusted_received_amount": {
+                        "type": "string",
+                        "description": "Adjusted Received Amount"
+                    },
+                    "fees_paid_amount": {
+                        "type": "string",
+                        "description": "Fees Paid Amount"
+                    },
+                    "bank_code": {
+                        "type": "string",
+                        "description": "Bank Code"
+                    },
+                    "paid_at": {
+                        "type": "string",
+                        "description": "Paid At"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "Status"
+                    },
+                    "created_at": {
+                        "pattern": "\/([0-9]{4})-(?:[0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2})\/",
+                        "type": "date-time",
+                        "description": "Created At",
+                        "example": "2021-05-17 00:00"
+                    },
+                    "payment_belongsto_user_relationship": {
+                        "type": "integer",
+                        "description": "User"
+                    }
+                }
+            },
+            "VoyagerProductsBrowseResource": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Name"
+                    },
+                    "price": {
+                        "type": "integer",
+                        "description": "Price"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Description"
+                    }
+                }
+            },
+            "VoyagerProductsReadResource": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Name"
+                    },
+                    "price": {
+                        "type": "integer",
+                        "description": "Price"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Description"
+                    }
+                }
+            },
+            "VoyagerOrdersBrowseResource": {
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "string",
+                        "description": "User Id"
+                    },
+                    "product_id": {
+                        "type": "string",
+                        "description": "Product Id"
+                    },
+                    "order_id": {
+                        "type": "string",
+                        "description": "Order Id"
+                    },
+                    "order_belongsto_user_relationship": {
+                        "type": "integer",
+                        "description": "User"
+                    },
+                    "order_belongsto_product_relationship": {
+                        "type": "integer",
+                        "description": "Product"
+                    },
+                    "created_at": {
+                        "pattern": "\/([0-9]{4})-(?:[0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2})\/",
+                        "type": "date-time",
+                        "description": "Created At",
+                        "example": "2021-05-17 00:00"
+                    }
+                }
+            },
+            "VoyagerOrdersReadResource": {
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "string",
+                        "description": "User Id"
+                    },
+                    "product_id": {
+                        "type": "string",
+                        "description": "Product Id"
+                    },
+                    "order_id": {
+                        "type": "string",
+                        "description": "Order Id"
+                    },
+                    "order_belongsto_user_relationship": {
+                        "type": "integer",
+                        "description": "User"
+                    },
+                    "order_belongsto_product_relationship": {
+                        "type": "integer",
+                        "description": "Product"
+                    },
+                    "created_at": {
+                        "pattern": "\/([0-9]{4})-(?:[0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2})\/",
+                        "type": "date-time",
+                        "description": "Created At",
+                        "example": "2021-05-17 00:00"
                     }
                 }
             }
@@ -6626,6 +8750,570 @@
                                 "trial_days": {
                                     "type": "integer",
                                     "description": "Trial Days (If none, set to 0)"
+                                }
+                            }
+                        }
+                    }
+                },
+                "required": true
+            },
+            "VoyagerPaymentsStoreRequest": {
+                "content": {
+                    "application\/x-www-form-urlencoded": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "dry-run": {
+                                    "type": "boolean",
+                                    "description": "Use dry-run only to validate"
+                                },
+                                "order_id": {
+                                    "type": "string",
+                                    "description": "Order Id"
+                                },
+                                "user_id": {
+                                    "type": "string",
+                                    "description": "User Id"
+                                },
+                                "invoice_id": {
+                                    "type": "string",
+                                    "description": "Invoice Id"
+                                },
+                                "product_id": {
+                                    "type": "string",
+                                    "description": "Product Id"
+                                },
+                                "amount": {
+                                    "type": "string",
+                                    "description": "Amount"
+                                },
+                                "description": {
+                                    "type": "string",
+                                    "description": "Description"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "Name"
+                                },
+                                "last_name": {
+                                    "type": "string",
+                                    "description": "Last Name"
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "description": "Email"
+                                },
+                                "phone_number": {
+                                    "type": "string",
+                                    "description": "Phone Number"
+                                },
+                                "city": {
+                                    "type": "string",
+                                    "description": "City"
+                                },
+                                "country": {
+                                    "type": "string",
+                                    "description": "Country"
+                                },
+                                "postal_code": {
+                                    "type": "string",
+                                    "description": "Postal Code"
+                                },
+                                "state": {
+                                    "type": "string",
+                                    "description": "State"
+                                },
+                                "street_line1": {
+                                    "type": "string",
+                                    "description": "Street Line1"
+                                },
+                                "street_line2": {
+                                    "type": "string",
+                                    "description": "Street Line2"
+                                },
+                                "payment_method": {
+                                    "type": "string",
+                                    "description": "Payment Method"
+                                },
+                                "payment_channel": {
+                                    "type": "string",
+                                    "description": "Payment Channel"
+                                },
+                                "payment_destination": {
+                                    "type": "string",
+                                    "description": "Payment Destination"
+                                },
+                                "paid_amount": {
+                                    "type": "string",
+                                    "description": "Paid Amount"
+                                },
+                                "payer_email": {
+                                    "type": "string",
+                                    "description": "Payer Email"
+                                },
+                                "adjusted_received_amount": {
+                                    "type": "string",
+                                    "description": "Adjusted Received Amount"
+                                },
+                                "fees_paid_amount": {
+                                    "type": "string",
+                                    "description": "Fees Paid Amount"
+                                },
+                                "bank_code": {
+                                    "type": "string",
+                                    "description": "Bank Code"
+                                },
+                                "paid_at": {
+                                    "type": "string",
+                                    "description": "Paid At"
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "description": "Status"
+                                },
+                                "payment_belongsto_user_relationship": {
+                                    "type": "integer",
+                                    "description": "User"
+                                }
+                            }
+                        }
+                    }
+                },
+                "required": true
+            },
+            "VoyagerPaymentsUpdateRequest": {
+                "content": {
+                    "application\/x-www-form-urlencoded": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "dry-run": {
+                                    "type": "boolean",
+                                    "description": "Use dry-run only to validate"
+                                },
+                                "order_id": {
+                                    "type": "string",
+                                    "description": "Order Id"
+                                },
+                                "user_id": {
+                                    "type": "string",
+                                    "description": "User Id"
+                                },
+                                "invoice_id": {
+                                    "type": "string",
+                                    "description": "Invoice Id"
+                                },
+                                "product_id": {
+                                    "type": "string",
+                                    "description": "Product Id"
+                                },
+                                "amount": {
+                                    "type": "string",
+                                    "description": "Amount"
+                                },
+                                "description": {
+                                    "type": "string",
+                                    "description": "Description"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "Name"
+                                },
+                                "last_name": {
+                                    "type": "string",
+                                    "description": "Last Name"
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "description": "Email"
+                                },
+                                "phone_number": {
+                                    "type": "string",
+                                    "description": "Phone Number"
+                                },
+                                "city": {
+                                    "type": "string",
+                                    "description": "City"
+                                },
+                                "country": {
+                                    "type": "string",
+                                    "description": "Country"
+                                },
+                                "postal_code": {
+                                    "type": "string",
+                                    "description": "Postal Code"
+                                },
+                                "state": {
+                                    "type": "string",
+                                    "description": "State"
+                                },
+                                "street_line1": {
+                                    "type": "string",
+                                    "description": "Street Line1"
+                                },
+                                "street_line2": {
+                                    "type": "string",
+                                    "description": "Street Line2"
+                                },
+                                "payment_method": {
+                                    "type": "string",
+                                    "description": "Payment Method"
+                                },
+                                "payment_channel": {
+                                    "type": "string",
+                                    "description": "Payment Channel"
+                                },
+                                "payment_destination": {
+                                    "type": "string",
+                                    "description": "Payment Destination"
+                                },
+                                "paid_amount": {
+                                    "type": "string",
+                                    "description": "Paid Amount"
+                                },
+                                "payer_email": {
+                                    "type": "string",
+                                    "description": "Payer Email"
+                                },
+                                "adjusted_received_amount": {
+                                    "type": "string",
+                                    "description": "Adjusted Received Amount"
+                                },
+                                "fees_paid_amount": {
+                                    "type": "string",
+                                    "description": "Fees Paid Amount"
+                                },
+                                "bank_code": {
+                                    "type": "string",
+                                    "description": "Bank Code"
+                                },
+                                "paid_at": {
+                                    "type": "string",
+                                    "description": "Paid At"
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "description": "Status"
+                                },
+                                "created_at": {
+                                    "pattern": "\/([0-9]{4})-(?:[0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2})\/",
+                                    "type": "date-time",
+                                    "description": "Created At",
+                                    "example": "2021-05-17 00:00"
+                                },
+                                "payment_belongsto_user_relationship": {
+                                    "type": "integer",
+                                    "description": "User"
+                                }
+                            }
+                        }
+                    }
+                },
+                "required": true
+            },
+            "VoyagerPaymentsSingleUpdateRequest": {
+                "content": {
+                    "application\/x-www-form-urlencoded": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "dry-run": {
+                                    "type": "boolean",
+                                    "description": "Use dry-run only to validate"
+                                },
+                                "order_id": {
+                                    "type": "string",
+                                    "description": "Order Id"
+                                },
+                                "user_id": {
+                                    "type": "string",
+                                    "description": "User Id"
+                                },
+                                "invoice_id": {
+                                    "type": "string",
+                                    "description": "Invoice Id"
+                                },
+                                "product_id": {
+                                    "type": "string",
+                                    "description": "Product Id"
+                                },
+                                "amount": {
+                                    "type": "string",
+                                    "description": "Amount"
+                                },
+                                "description": {
+                                    "type": "string",
+                                    "description": "Description"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "Name"
+                                },
+                                "last_name": {
+                                    "type": "string",
+                                    "description": "Last Name"
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "description": "Email"
+                                },
+                                "phone_number": {
+                                    "type": "string",
+                                    "description": "Phone Number"
+                                },
+                                "city": {
+                                    "type": "string",
+                                    "description": "City"
+                                },
+                                "country": {
+                                    "type": "string",
+                                    "description": "Country"
+                                },
+                                "postal_code": {
+                                    "type": "string",
+                                    "description": "Postal Code"
+                                },
+                                "state": {
+                                    "type": "string",
+                                    "description": "State"
+                                },
+                                "street_line1": {
+                                    "type": "string",
+                                    "description": "Street Line1"
+                                },
+                                "street_line2": {
+                                    "type": "string",
+                                    "description": "Street Line2"
+                                },
+                                "payment_method": {
+                                    "type": "string",
+                                    "description": "Payment Method"
+                                },
+                                "payment_channel": {
+                                    "type": "string",
+                                    "description": "Payment Channel"
+                                },
+                                "payment_destination": {
+                                    "type": "string",
+                                    "description": "Payment Destination"
+                                },
+                                "paid_amount": {
+                                    "type": "string",
+                                    "description": "Paid Amount"
+                                },
+                                "payer_email": {
+                                    "type": "string",
+                                    "description": "Payer Email"
+                                },
+                                "adjusted_received_amount": {
+                                    "type": "string",
+                                    "description": "Adjusted Received Amount"
+                                },
+                                "fees_paid_amount": {
+                                    "type": "string",
+                                    "description": "Fees Paid Amount"
+                                },
+                                "bank_code": {
+                                    "type": "string",
+                                    "description": "Bank Code"
+                                },
+                                "paid_at": {
+                                    "type": "string",
+                                    "description": "Paid At"
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "description": "Status"
+                                },
+                                "created_at": {
+                                    "pattern": "\/([0-9]{4})-(?:[0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2})\/",
+                                    "type": "date-time",
+                                    "description": "Created At",
+                                    "example": "2021-05-17 00:00"
+                                },
+                                "payment_belongsto_user_relationship": {
+                                    "type": "integer",
+                                    "description": "User"
+                                }
+                            }
+                        }
+                    }
+                },
+                "required": true
+            },
+            "VoyagerProductsStoreRequest": {
+                "content": {
+                    "application\/x-www-form-urlencoded": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "dry-run": {
+                                    "type": "boolean",
+                                    "description": "Use dry-run only to validate"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "Name"
+                                },
+                                "price": {
+                                    "type": "integer",
+                                    "description": "Price"
+                                },
+                                "description": {
+                                    "type": "string",
+                                    "description": "Description"
+                                }
+                            }
+                        }
+                    }
+                },
+                "required": true
+            },
+            "VoyagerProductsUpdateRequest": {
+                "content": {
+                    "application\/x-www-form-urlencoded": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "dry-run": {
+                                    "type": "boolean",
+                                    "description": "Use dry-run only to validate"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "Name"
+                                },
+                                "price": {
+                                    "type": "integer",
+                                    "description": "Price"
+                                },
+                                "description": {
+                                    "type": "string",
+                                    "description": "Description"
+                                }
+                            }
+                        }
+                    }
+                },
+                "required": true
+            },
+            "VoyagerProductsSingleUpdateRequest": {
+                "content": {
+                    "application\/x-www-form-urlencoded": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "dry-run": {
+                                    "type": "boolean",
+                                    "description": "Use dry-run only to validate"
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "description": "Name"
+                                },
+                                "price": {
+                                    "type": "integer",
+                                    "description": "Price"
+                                },
+                                "description": {
+                                    "type": "string",
+                                    "description": "Description"
+                                }
+                            }
+                        }
+                    }
+                },
+                "required": true
+            },
+            "VoyagerOrdersStoreRequest": {
+                "content": {
+                    "application\/x-www-form-urlencoded": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "dry-run": {
+                                    "type": "boolean",
+                                    "description": "Use dry-run only to validate"
+                                },
+                                "user_id": {
+                                    "type": "string",
+                                    "description": "User Id"
+                                },
+                                "product_id": {
+                                    "type": "string",
+                                    "description": "Product Id"
+                                },
+                                "order_belongsto_user_relationship": {
+                                    "type": "integer",
+                                    "description": "User"
+                                },
+                                "order_belongsto_product_relationship": {
+                                    "type": "integer",
+                                    "description": "Product"
+                                }
+                            }
+                        }
+                    }
+                },
+                "required": true
+            },
+            "VoyagerOrdersUpdateRequest": {
+                "content": {
+                    "application\/x-www-form-urlencoded": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "dry-run": {
+                                    "type": "boolean",
+                                    "description": "Use dry-run only to validate"
+                                },
+                                "user_id": {
+                                    "type": "string",
+                                    "description": "User Id"
+                                },
+                                "product_id": {
+                                    "type": "string",
+                                    "description": "Product Id"
+                                },
+                                "order_belongsto_user_relationship": {
+                                    "type": "integer",
+                                    "description": "User"
+                                },
+                                "order_belongsto_product_relationship": {
+                                    "type": "integer",
+                                    "description": "Product"
+                                }
+                            }
+                        }
+                    }
+                },
+                "required": true
+            },
+            "VoyagerOrdersSingleUpdateRequest": {
+                "content": {
+                    "application\/x-www-form-urlencoded": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "dry-run": {
+                                    "type": "boolean",
+                                    "description": "Use dry-run only to validate"
+                                },
+                                "user_id": {
+                                    "type": "string",
+                                    "description": "User Id"
+                                },
+                                "product_id": {
+                                    "type": "string",
+                                    "description": "Product Id"
+                                },
+                                "order_belongsto_user_relationship": {
+                                    "type": "integer",
+                                    "description": "User"
+                                },
+                                "order_belongsto_product_relationship": {
+                                    "type": "integer",
+                                    "description": "Product"
                                 }
                             }
                         }
