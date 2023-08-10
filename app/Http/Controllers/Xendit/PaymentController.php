@@ -20,23 +20,21 @@ class PaymentController extends Controller
         $user = User::find($order->user_id);
         $product = Product::find($order->product_id);
         $payment = Payment::where('order_id', $order->order_id)->first();
-        // print_r($order);
-        // print_r($user);
-        // print_r($product);
+        
         try {
             Xendit::setApiKey(env('XENDIT_SECRET_API_KEY'));
             $fees = 5000;
             $params = [
                 'external_id' => $order->order_id,
                 'amount' => $product->price+$fees,
-                // 'description' => '',
+                'description' => ' ',
                 'invoice_duration' => 86400,
                 'payer_email' => $user->email,
                 'customer' => [
                     'given_names' => $user->name,
-                    // 'surname' => '',
+                    'surname' => ' ',
                     'email' => $user->email,
-                    'mobile_number' => '123',
+                    'mobile_number' => '+62',
                     'address' => [
                         [
                             'city' => '',
@@ -74,15 +72,15 @@ class PaymentController extends Controller
                         'viber'
                     ]
                 ],
-                'success_redirect_url' => route('success'),
-                'failure_redirect_url' => route('failure'),
+                // 'success_redirect_url' => route('voyager.payments.index'),
+                // 'failure_redirect_url' => route('voyager.payments.index'),
                 'currency' => 'IDR',
                 'items' => [
                     [
                         'name' => $product->name,
                         'quantity' => 1,
                         'price' => $product->price,
-                        // 'category' => '',
+                        'category' => ' ',
                         'url' => url('/')
                     ]
                 ],
@@ -106,7 +104,7 @@ class PaymentController extends Controller
                     'user_id' => $user->id,
                     'product_id' => $product->id,
                     'invoice_id' => $xenditInvoiceId,
-                    'amount' => $product->price,
+                    'amount' => $product->price+$fees,
                 ]);
                 DB::commit();
                 }            
