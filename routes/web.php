@@ -40,3 +40,9 @@ Route::middleware('auth')->group(function () {
 	Route::get('/failure', [\App\Http\Controllers\Xendit\AfterCartController::class, 'failure'])->name('failure');
 });
 Route::post('/xendit/callback', \App\Http\Controllers\Xendit\CallbackInvoiceController::class);
+
+// File Manager
+
+Route::middleware('auth')->group(function () {
+    Route::get('file-manager', [\App\Http\Controllers\FileManager\FileManagerController::class, 'index']);    
+});
