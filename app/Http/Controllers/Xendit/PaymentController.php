@@ -11,10 +11,16 @@ use Xendit\Xendit;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 
+// Tripay
+use ZerosDev\TriPay\Client as TriPayClient;
+use ZerosDev\TriPay\Support\Constant;
+use ZerosDev\TriPay\Support\Helper;
+use ZerosDev\TriPay\Transaction;
+
 
 class PaymentController extends Controller
 {
-    public function payment($id)
+    public function payment2($id)
     {
         $order = Order::find($id);
         $user = User::find($order->user_id);
@@ -114,5 +120,46 @@ class PaymentController extends Controller
             DB::rollBack();
             // return redirect()->back()->with('status', $ex->getMessage());
         }
+    }
+
+    public function payment($id)
+    {
+        $order = Order::find($id);
+        $user = User::find($order->user_id);
+        $product = Product::find($order->product_id);
+        $payment = Payment::where('order_id', $order->order_id)->first();
+        
+        $merchantCode = 'T24618';
+        $apiKey = 'b6hJYQJCY2dTlKNKvSO3Hl9vMYvEnvuD99wz6USu';
+        $privateKey = 'vH7U4-GKjN5-VZ3Eu-hYhXA-VvTWS';
+        $mode = Constant::MODE_DEVELOPMENT;
+        $guzzleOptions = []; // Your additional Guzzle options (https://docs.guzzlephp.org/en/stable/request-options.html)
+
+        $client = new TriPayClient($merchantCode, $apiKey, $privateKey, $mode, $guzzleOptions);
+        $transaction = new Transaction($client);
+
+        /**
+         * `amount` will be calculated automatically from order items
+         * so you don't have to enter it
+         * In this example, amount will be 40.000
+         */
+        $result = $transaction
+            ->addOrderItem($product->name, $product->price, 1)
+            ->create([
+                'method' => 'BRIVA',
+                'merchant_ref' => $order->order_id,
+                'customer_name' => $user->name,
+                'customer_email' => $user->email,
+                'customer_phone' => '081234567890',
+                'expired_time' => Helper::makeTimestamp('6 HOUR'), // see Supported Time Units
+            ]);
+        
+        echo $result->getBody()->getContents();
+        
+        /**
+        * For debugging purpose
+        */
+        $debugs = $client->debugs();
+        echo json_encode($debugs, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     }
 }

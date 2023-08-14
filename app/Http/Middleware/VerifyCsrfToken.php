@@ -13,6 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         '/paddle/webhook',
-        '/xendit/callback'
+        '/xendit/callback',
+        '/tripay/callback'
     ];
 }

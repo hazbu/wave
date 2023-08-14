@@ -29,7 +29,8 @@
         "orangehill/iseed": "^3.0",
         "tcg/voyager": "1.5.x-dev",
         "tymon/jwt-auth": "@dev",
-        "xendit/xendit-php": "^2.19"
+        "xendit/xendit-php": "^2.19",
+        "zerosdev/tripay-sdk-php": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
