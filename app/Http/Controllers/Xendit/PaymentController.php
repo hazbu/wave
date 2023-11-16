@@ -10,17 +10,20 @@ use App\Product;
 use Xendit\Xendit;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 // Tripay
 use ZerosDev\TriPay\Client as TriPayClient;
 use ZerosDev\TriPay\Support\Constant;
 use ZerosDev\TriPay\Support\Helper;
 use ZerosDev\TriPay\Transaction;
+use ZerosDev\TriPay\Client;
+use ZerosDev\TriPay\Merchant;
 
 
 class PaymentController extends Controller
 {
-    public function payment2($id)
+    public function xendit($id)
     {
         $order = Order::find($id);
         $user = User::find($order->user_id);
@@ -29,10 +32,13 @@ class PaymentController extends Controller
         
         try {
             Xendit::setApiKey(env('XENDIT_SECRET_API_KEY'));
-            $fees = 5000;
+            $fee = $product->price * 0.05;
+            $total = $product->price + $fee;
+            
             $params = [
+                'payment_methods' => ['OVO','DANA'],
                 'external_id' => $order->order_id,
-                'amount' => $product->price+$fees,
+                'amount' => $total,
                 'description' => ' ',
                 'invoice_duration' => 86400,
                 'payer_email' => $user->email,
@@ -92,8 +98,8 @@ class PaymentController extends Controller
                 ],
                 'fees' => [
                     [
-                        'type' => 'Layanan',
-                        'value' => $fees
+                        'type' => 'Biaya Layanan',
+                        'value' => $fee
                     ]
                 ]
             ];
@@ -110,7 +116,7 @@ class PaymentController extends Controller
                     'user_id' => $user->id,
                     'product_id' => $product->id,
                     'invoice_id' => $xenditInvoiceId,
-                    'amount' => $product->price+$fees,
+                    'amount' => $total,
                 ]);
                 DB::commit();
                 }            
@@ -124,42 +130,89 @@ class PaymentController extends Controller
 
     public function payment($id)
     {
+        return $this->xendit($id);
+        // return $this->getChannel();
+    }
+
+    public function getChannel()
+    {
+        $mode = Constant::MODE_DEVELOPMENT;
+        $merchantCode = ($mode == Constant::MODE_DEVELOPMENT) ? 'T13468' : 'T24618';
+        $apiKey = ($mode == Constant::MODE_DEVELOPMENT) ? 'DEV-AbweW8CFMneMP727Zv69vvAT8WWDQekVhOYLN2Fc' : 'b6hJYQJCY2dTlKNKvSO3Hl9vMYvEnvuD99wz6USu';
+        $privateKey = ($mode == Constant::MODE_DEVELOPMENT) ? '9jEr8-ncXml-aZKTc-Hl5mJ-PRidq' : 'vH7U4-GKjN5-VZ3Eu-hYhXA-VvTWS';
+        $guzzleOptions = []; // Your additional Guzzle options (https://docs.guzzlephp.org/en/stable/request-options.html)
+
+        $config = [
+            'mode' => $mode,
+            'merchant_code' => $merchantCode,
+            'api_key' => $apiKey,
+            'private_key' => $privateKey,
+            'guzzle_options' => []
+        ];
+        $client = new Client($config);
+        $merchant = new Merchant($client);
+        $result = $merchant->paymentChannels();
+        echo $result->getBody()->getContents();
+    }
+
+    public function tripay($id)
+    {
         $order = Order::find($id);
         $user = User::find($order->user_id);
         $product = Product::find($order->product_id);
         $payment = Payment::where('order_id', $order->order_id)->first();
         
-        $merchantCode = 'T24618';
-        $apiKey = 'b6hJYQJCY2dTlKNKvSO3Hl9vMYvEnvuD99wz6USu';
-        $privateKey = 'vH7U4-GKjN5-VZ3Eu-hYhXA-VvTWS';
         $mode = Constant::MODE_DEVELOPMENT;
+        $merchantCode = ($mode == Constant::MODE_DEVELOPMENT) ? 'T13468' : 'T24618';
+        $apiKey = ($mode == Constant::MODE_DEVELOPMENT) ? 'DEV-AbweW8CFMneMP727Zv69vvAT8WWDQekVhOYLN2Fc' : 'b6hJYQJCY2dTlKNKvSO3Hl9vMYvEnvuD99wz6USu';
+        $privateKey = ($mode == Constant::MODE_DEVELOPMENT) ? '9jEr8-ncXml-aZKTc-Hl5mJ-PRidq' : 'vH7U4-GKjN5-VZ3Eu-hYhXA-VvTWS';
         $guzzleOptions = []; // Your additional Guzzle options (https://docs.guzzlephp.org/en/stable/request-options.html)
 
-        $client = new TriPayClient($merchantCode, $apiKey, $privateKey, $mode, $guzzleOptions);
-        $transaction = new Transaction($client);
+        $config = [
+            'mode' => $mode,
+            'merchant_code' => $merchantCode,
+            'api_key' => $apiKey,
+            'private_key' => $privateKey,
+            'guzzle_options' => []
+        ];
 
-        /**
-         * `amount` will be calculated automatically from order items
-         * so you don't have to enter it
-         * In this example, amount will be 40.000
-         */
-        $result = $transaction
-            ->addOrderItem($product->name, $product->price, 1)
-            ->create([
-                'method' => 'BRIVA',
-                'merchant_ref' => $order->order_id,
-                'customer_name' => $user->name,
-                'customer_email' => $user->email,
-                'customer_phone' => '081234567890',
-                'expired_time' => Helper::makeTimestamp('6 HOUR'), // see Supported Time Units
-            ]);
-        
-        echo $result->getBody()->getContents();
-        
-        /**
-        * For debugging purpose
-        */
-        $debugs = $client->debugs();
-        echo json_encode($debugs, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        if($payment){
+            $checkoutUrl = 'https://tripay.co.id/checkout/'.$payment->invoice_id;
+        }else{
+            $client = new TriPayClient($config);
+            $transaction = new Transaction($client);
+            $result = $transaction
+                ->addOrderItem($product->name, $product->price, 1)
+                ->create([
+                    'method' => 'OVO',
+                    'merchant_ref' => $order->order_id,
+                    'customer_name' => $user->name,
+                    'customer_email' => $user->email,
+                    'customer_phone' => '08123456789',
+                    // 'expired_time' => Helper::makeTimestamp('6 HOUR'), // see Supported Time Units
+                    'expired_time' => Carbon::now('Asia/Jakarta')->addHours(6)->timestamp,
+                ]);
+
+            $jsonResponse = $result->getBody()->getContents();
+            $responseData = json_decode($jsonResponse, true);
+            // echo $result->getBody()->getContents();
+            // die();
+            $checkoutUrl = $responseData['data']['checkout_url'];
+
+            DB::beginTransaction();
+                Payment::updateOrCreate([
+                    'order_id' => $order->order_id,
+                ],
+                [
+                    'user_id' => $user->id,
+                    'product_id' => $product->id,
+                    'invoice_id' => $responseData['data']['reference'],
+                    'amount' => $product->price,
+                ]);
+                DB::commit();
+        }
+        return Redirect::to($checkoutUrl);
+        // $debugs = $client->debugs();
+        // echo json_encode($debugs, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     }
 }
